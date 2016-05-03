@@ -9,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public abstract class Clawer extends Thread {
+    
+    protected volatile boolean closed = true;
 
     protected static class DataKit {
         public static final Map<String, String> data(String ...args) {
@@ -39,6 +41,8 @@ public abstract class Clawer extends Thread {
         return getConnection(url, data).get();
     }
     
+    public abstract <T> Clawer setDataService(IDataService<T> service);
+    
     private final Connection getConnection(String url, Map<String, String> data) throws IOException {
         Connection conn = Jsoup.connect(url)
                                .followRedirects(true)
@@ -50,5 +54,9 @@ public abstract class Clawer extends Thread {
         }
         
         return conn;
+    }
+    
+    public void shutdown() {
+        closed = true;
     }
 }
