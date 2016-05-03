@@ -1,22 +1,26 @@
 package com.yourblogz.clawer.csdn;
 
+import org.jsoup.nodes.Document;
+
 import com.yourblogz.clawer.Clawer;
-import com.yourblogz.clawer.IDataService;
+import com.yourblogz.clawer.bean.CsdnBean;
 
-public class CsdnClawer extends Clawer {
-
-    @Override
-    public void run() {
-        closed = false;
-        while (!closed) {
-            
-        }
+public class CsdnClawer extends Clawer<CsdnBean> {
+    
+    private CsdnBean csdnBean = null;
+    
+    public CsdnClawer(String site) {
+        super(site);
+        addSites("http://blog.csdn.net/",
+                 "http://blog.csdn.net/?page=2",
+                 "http://blog.csdn.net/?page=3");
+        addRules("^http://blog\\.csdn\\.net/([\\w\\d]+)/article/details/[\\d]+$");
     }
 
     @Override
-    public <V> CsdnClawer setDataService(IDataService<V> service) {
-        service.dataHandler(null);
-        return this;
+    protected void page(Document page) {
+        csdnBean = new CsdnBean();
+        service.data(csdnBean);
     }
 
 }

@@ -4,19 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yourblogz.clawer.Clawer;
-import com.yourblogz.clawer.IDataService;
 import com.yourblogz.clawer.csdn.CsdnClawer;
 
 public class ClawerRunner {
     
     private static final Logger log = LoggerFactory.getLogger(ClawerRunner.class);
+    private final CsdnClawer csdn = new CsdnClawer("csdn-clawer");
     
-    private Clawer[] clawers = {
-        new CsdnClawer().setDataService(new IDataService<String>() {
-            @Override
-            public void dataHandler(String t) {
-                
-            }
+    private Clawer<?>[] clawers = {
+        csdn.setInterval(3000).setDataHandler((bean) -> {
+            
         })
     };
 
@@ -30,13 +27,13 @@ public class ClawerRunner {
     }
     
     public void start() throws InterruptedException {
-        for (Clawer c : clawers) {
+        for (Clawer<?> c : clawers) {
             c.start(); Thread.sleep(3000);
         }
     }
     
     public void shutdown() throws InterruptedException {
-        for (Clawer c : clawers) {
+        for (Clawer<?> c : clawers) {
             c.shutdown(); c.join();
         }
     }
