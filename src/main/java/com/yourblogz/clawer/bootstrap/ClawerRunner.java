@@ -4,15 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.yourblogz.clawer.Clawer;
-import com.yourblogz.clawer.csdn.CsdnClawer;
+import com.yourblogz.clawer.website.CnblogsClawer;
+import com.yourblogz.clawer.website.CsdnClawer;
 
 public class ClawerRunner {
     
     private static final Logger log = LoggerFactory.getLogger(ClawerRunner.class);
     private final CsdnClawer csdn = new CsdnClawer("csdn-clawer");
+    private final CnblogsClawer cnblogs = new CnblogsClawer("cnblogs-clawer");
     
     private Clawer<?>[] clawers = {
         csdn.setInterval(3000).setDataHandler((bean) -> {
+            
+        }),
+        cnblogs.setInterval(3000).setDataHandler((bean) -> {
             
         })
     };

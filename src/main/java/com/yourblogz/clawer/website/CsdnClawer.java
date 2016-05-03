@@ -1,4 +1,4 @@
-package com.yourblogz.clawer.csdn;
+package com.yourblogz.clawer.website;
 
 import org.jsoup.nodes.Document;
 
@@ -9,8 +9,8 @@ public class CsdnClawer extends Clawer<CsdnBean> {
     
     private CsdnBean csdnBean = null;
     
-    public CsdnClawer(String site) {
-        super(site);
+    public CsdnClawer(String name) {
+        super(name);
         addSites("http://blog.csdn.net/",
                  "http://blog.csdn.net/?page=2",
                  "http://blog.csdn.net/?page=3");
